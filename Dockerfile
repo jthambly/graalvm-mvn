@@ -9,8 +9,8 @@ RUN gu install native-image
 
 # Download Maven
 RUN yum -y install wget
-RUN wget https://apache.mirror.digitalpacific.com.au/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz \
-  && wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz.sha512 \
+RUN wget -q https://apache.mirror.digitalpacific.com.au/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz \
+  && wget -q https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz.sha512 \
   && sh -c "cat apache-maven-3.6.3-bin.tar.gz.sha512 && echo '  apache-maven-3.6.3-bin.tar.gz'" | sha512sum -c
 
 # Extract Maven
