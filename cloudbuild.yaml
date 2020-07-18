@@ -4,7 +4,7 @@ steps:
 
 - id: Download latest image
   name: 'gcr.io/cloud-builders/docker'
-  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:f4bb9c6-root','-f','Dockerfile-root','.']
+  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:f4bb9c6-root']
 
 - id: Build image for root user
   name: 'gcr.io/cloud-builders/docker'
