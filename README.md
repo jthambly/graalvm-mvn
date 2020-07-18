@@ -1,3 +1,5 @@
+![Docker Build and Push](https://github.com/jthambly/graalvm-mvn/workflows/Docker%20Build%20and%20Push/badge.svg?branch=master)
+
 # graalvm-mvn
 Dockerfile for building a GraalVM and Maven image
 
