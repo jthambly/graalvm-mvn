@@ -1,0 +1,37 @@
+## Google Cloud Build - Build and Push Docker image
+
+steps:
+
+- id: Build image for root user
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA','-f','Dockerfile-root','.']
+  
+- id: Push image for root user
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA]
+  
+- id: Tag image for root user
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['tag','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA','gcr.io/$PROJECT_ID/$REPO_NAME:root-usr']
+  
+- id: Push image for root user
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:root-usr']
+
+- id: Build image for mvn user
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA','-f','Dockerfile','.']
+  
+- id: Push image for mvn user
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA]
+  
+- id: Tag image for mvn user
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['tag','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA','gcr.io/$PROJECT_ID/$REPO_NAME:mvn-usr']
+  
+- id: Push image for mvn user
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:mvn-usr']
+  
+timeout: 600s
