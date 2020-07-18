@@ -8,7 +8,7 @@ steps:
   
 - id: Push image for root user
   name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root]
+  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root']
 
 - id: Build image for mvn user
   name: 'gcr.io/cloud-builders/docker'
@@ -16,6 +16,6 @@ steps:
   
 - id: Push image for mvn user
   name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-mv]
+  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-mvn']
   
 timeout: 600s
