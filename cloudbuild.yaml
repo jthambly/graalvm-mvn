@@ -2,6 +2,10 @@
 
 steps:
 
+- id: Download latest image
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:f4bb9c6-root','-f','Dockerfile-root','.']
+
 - id: Build image for root user
   name: 'gcr.io/cloud-builders/docker'
   args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root','-f','Dockerfile-root','.']
@@ -9,6 +13,14 @@ steps:
 - id: Push image for root user
   name: 'gcr.io/cloud-builders/docker'
   args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root']
+  
+- id: Tag as latest
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['tag','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
+  
+- id: Push latest image
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
 
 - id: Build image for mvn user
   name: 'gcr.io/cloud-builders/docker'
