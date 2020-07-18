@@ -19,7 +19,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: jthambly/graalvm-mvn
-        tags: mvnuser
+        tags: mvnusr
     - name: Build and push Docker image with root user
       uses: docker/build-push-action@v1
       with:
