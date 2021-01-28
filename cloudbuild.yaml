@@ -4,30 +4,22 @@ steps:
 
 - id: Download latest image
   name: 'gcr.io/cloud-builders/docker'
-  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:f4bb9c6-root']
+  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
 
-- id: Build image for root user
+- id: Build image
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root','-f','Dockerfile-root','.']
+  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA','-f','Dockerfile','.']
   
-- id: Push image for root user
+- id: Push image
   name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root']
+  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA']
   
 - id: Tag as latest
   name: 'gcr.io/cloud-builders/docker'
-  args: ['tag','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
+  args: ['tag','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
   
 - id: Push latest image
   name: 'gcr.io/cloud-builders/docker'
   args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
-
-- id: Build image for mvn user
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-mvn','-f','Dockerfile','.']
-  
-- id: Push image for mvn user
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-mvn']
   
 timeout: 600s
