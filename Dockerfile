@@ -6,6 +6,11 @@ ENV GRAALVM_VERSION=21.0.0
 ENV OPENJDK_VERSION=11
 ENV MAVEN_VERSION=3.6.3
 
+# Environment variables
+ENV JAVA_HOME="/opt/graalvm-ce-java$OPENJDK_VERSION-$GRAALVM_VERSION"
+ENV MAVEN_HOME="/opt/apache-maven-$MAVEN_VERSION"
+ENV PATH="$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH"
+
 # Update system packages
 RUN yum -y update
 
@@ -18,7 +23,7 @@ RUN curl -s -L "https://github.com/graalvm/graalvm-ce-builds/releases/download/v
 RUN tar -xzf "graalvm-ce-java$OPENJDK_VERSION-linux-amd64-$GRAALVM_VERSION.tar.gz" -C /opt
 
 # Install native-image
-RUN "/opt/graalvm-ce-java$OPENJDK_VERSION-$GRAALVM_VERSION/bin/gu" install native-image
+RUN gu install native-image
 
 # Download Maven
 RUN curl -s -L "https://maven.apache.org/download.cgi?action=download&filename=maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz" -o "apache-maven-$MAVEN_VERSION-bin.tar.gz" \
@@ -27,11 +32,6 @@ RUN curl -s -L "https://maven.apache.org/download.cgi?action=download&filename=m
 
 # Extract Maven
 RUN tar -xzf "apache-maven-$MAVEN_VERSION-bin.tar.gz" -C /opt
-
-# Set up environment
-RUN echo "export JAVA_HOME=/opt/graalvm-ce-java$OPENJDK_VERSION-$GRAALVM_VERSION" > /etc/profile.d/graalvm-mvn.sh \
-  && echo "export MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION" >> /etc/profile.d/graalvm-mvn.sh \
-  && echo "export PATH=\$JAVA_HOME/bin:\$MAVEN_HOME/bin:$PATH" >> /etc/profile.d/graalvm-mvn.sh
 
 # Clean up
 RUN yum clean all \
