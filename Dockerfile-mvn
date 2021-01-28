@@ -21,3 +21,9 @@ RUN tar -xvf apache-maven-3.6.3-bin.tar.gz -C /opt \
 RUN yum -y erase wget \
   && yum clean all \
   && rm apache-maven*.tar.gz*
+
+# Create new user
+RUN useradd -s /sbin/nologin -M mvn
+
+# Run as
+USER mvn
