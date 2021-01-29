@@ -2,10 +2,6 @@
 
 steps:
 
-#- id: Download latest image
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
-
 - id: Build image
   name: 'gcr.io/cloud-builders/docker'
   args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME','-f','Dockerfile','.']
@@ -22,18 +18,6 @@ steps:
   name: 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME'
   entrypoint: mvn
   args: ['clean','package','-Pnative','-f','testbuild/code-with-quarkus/pom.xml']
-  
-#- id: Push image
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME']
-  
-#- id: Tag as latest
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['tag','gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
-  
-#- id: Push latest image
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
 
 images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME']
   
