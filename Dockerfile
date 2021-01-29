@@ -13,7 +13,7 @@ ENV PATH="$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH"
 
 # Update system packages
 RUN yum -y update \
-  && yum -y install gcc glibc-devel zlib-devel libstdc++-static
+  && yum -y install gcc glibc-devel zlib-devel libstdc++-devel
 
 # Download GraalVM CE
 RUN curl -s -L "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-$GRAALVM_VERSION/graalvm-ce-java$OPENJDK_VERSION-linux-amd64-$GRAALVM_VERSION.tar.gz" -o "graalvm-ce-java$OPENJDK_VERSION-linux-amd64-$GRAALVM_VERSION.tar.gz" \
