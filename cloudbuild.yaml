@@ -7,8 +7,8 @@ steps:
   args: ['-O','test.zip','https://code.quarkus.io/d?g=org.acme&a=code-with-quarkus&v=1.0.0-SNAPSHOT&b=MAVEN&s=&cn=code.quarkus.io']
 
 - id: 'Test Build: Unpack source'
-  name: 'gcr.io/$PROJECT_ID/tar'
-  args: ['-tzvf','test.zip']
+  name: 'gcr.io/$PROJECT_ID/unzip'
+  args: ['-l','test.zip']
 
 - id: Download latest image
   name: 'gcr.io/cloud-builders/docker'
