@@ -2,14 +2,6 @@
 
 steps:
 
-- id: Download latest image
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
-
-- id: Build image
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME','-f','Dockerfile','.']
-
 - id: 'Test Build: Download source'
   name: 'gcr.io/cloud-builders/wget'
   args: ['-O','test.zip','https://code.quarkus.io/d?g=org.acme&a=code-with-quarkus&v=1.0.0-SNAPSHOT&b=MAVEN&s=&cn=code.quarkus.io']
@@ -17,6 +9,14 @@ steps:
 - id: 'Test Build: Unpack source'
   name: 'gcr.io/cloud-builders/tar'
   args: ['-tzvf','test.zip']
+
+- id: Download latest image
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
+
+- id: Build image
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME','-f','Dockerfile','.']
   
 - id: Push image
   name: 'gcr.io/cloud-builders/docker'
