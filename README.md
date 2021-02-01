@@ -98,6 +98,12 @@ Apache Maven
 Red Hat Quarkus
  - https://www.apache.org/licenses/LICENSE-2.0
 
+docker/build-push-action
+ - https://github.com/docker/build-push-action/blob/master/LICENSE
+
+crazy-max/ghaction-docker-meta
+ - https://github.com/crazy-max/ghaction-docker-meta/blob/master/LICENSE
+
 
 ---
 
