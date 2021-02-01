@@ -1,4 +1,5 @@
 # Updated using documentation available via https://github.com/docker/build-push-action
+# Updated using documentation available via https://github.com/crazy-max/ghaction-docker-meta
 
 name: Docker Build and Push
 on:
@@ -16,6 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Docker meta
+      id: docker_meta
+      uses: crazy-max/ghaction-docker-meta@v1
+      with:
+        images: jthambly/graalvm-mvn
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -29,6 +35,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: |
-          jthambly/graalvm-mvn:latest
-          "jthambly/graalvm-mvn:${{GITHUB_REF}}"
+        tags: ${{ steps.docker_meta.outputs.tags }}
