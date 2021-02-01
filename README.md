@@ -36,12 +36,12 @@ A running container will be under the user `mvn` with the UID and GID of `1000:1
 
 
 You will need to take special notice when it comes to the file permissions of mounted volumes. 
-The container user will be running with the `mvn` user. However, a mounted volume will likely take on the permissions of the host, as such may be another user such as `root`. 
-Given this, the user may not be able to create folders and write files required during the building process.
+The container is running using the `mvn` user. However, a mounted volume will likely take on the permissions of the host, as such may be another user such as `root`. 
+Given this, the user may not be able to create folders and write the files required during the building process.
 
-If you have control of the host, it may be as simple as adjusting the permissions of the folders you are mounting to be suitable for the `mvn` user (`UID:1000`) of the container.
+If you have control of the host, it *may* be as simple as adjusting the permissions of the folders you are mounting to be suitable for the `mvn` user (`UID:1000`) of the container.
 
-In other circumstances, you may not have control over the underlying host, for example when you use a building platforms such as *Google Cloud Build*. 
+In other circumstances, you may not have control over the underlying host, for example when you using building platforms such as *Google Cloud Build*. 
 A solution for this ([Allen, 2020](https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102)) may be to change the file permissions during a build step to allow anyone (in the current build process) to modify files. 
 This allows the container to access and modify the workspace files/folders as required.
 
@@ -57,7 +57,7 @@ Two locations have been created as optional workspaces. These are:
 - */project*. <br/>
 
 
-You will need to mount your project to one of these (Example 4), or an alternate location (Example 5) of your choosing.
+You can mount your project to one of these (Example 4), or an alternate location (Example 5) of your choosing.
 
 
 **Example 4: Mount to a provided workspace**
