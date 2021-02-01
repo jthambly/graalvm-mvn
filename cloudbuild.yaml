@@ -2,32 +2,31 @@
 
 steps:
 
-- id: Download latest image
+- id: Build image
   name: 'gcr.io/cloud-builders/docker'
-  args: ['pull','gcr.io/$PROJECT_ID/$REPO_NAME:f4bb9c6-root']
+  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME','-f','Dockerfile','.']
 
-- id: Build image for root user
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root','-f','Dockerfile-root','.']
-  
-- id: Push image for root user
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root']
-  
-- id: Tag as latest
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['tag','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-root','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
-  
-- id: Push latest image
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:latest']
+- id: 'Test Build: Download source'
+  name: 'gcr.io/cloud-builders/wget'
+  args: ['-O','test.zip','https://code.quarkus.io/d?g=org.acme&a=code-with-quarkus&v=1.0.0-SNAPSHOT&b=MAVEN&s=&cn=code.quarkus.io']
 
-- id: Build image for mvn user
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-mvn','-f','Dockerfile','.']
+- id: 'Test Build: Unpack source'
+  name: 'gcr.io/$PROJECT_ID/unzip'
+  args: ['-q','-u','test.zip','-d','testbuild']
+
+- id: 'Test Build: Change folder permissions'
+  name: 'busybox'
+  entrypoint: sh
+  args: ['-c','chmod -R 777 testbuild']
+
+- id: 'Test Build: Build using newly created image'
+  name: 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME'
+  entrypoint: mvn
+  args: ['clean','package','-Pnative','-f','testbuild/code-with-quarkus/pom.xml']
+
+images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME']
   
-- id: Push image for mvn user
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA-mvn']
+options:
+  machineType: 'N1_HIGHCPU_8'
   
-timeout: 600s
+timeout: 900s
