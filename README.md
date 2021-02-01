@@ -9,6 +9,22 @@ GraalVM CE: 21.0.0-java11 <br/>
 OpenJDK: Java11 <br/>
 Maven: 3.6.3
 
+# Run as user
+
+This container will run as the user 'mvn' and UID of '1000'. <br/>
+
+In running this you may need to make adjustments in either host filesystem permissions, or build platform.<br/>
+When using Google Cloud Build, the workspace permissions need to be adjusted to allow the mvn user to modify files/folders. <br/>
+
+<p>
+For example, this solution (..,..) changes the file permissions are changed to allow anyone (in the current build process) to modify files.<br/><br/>
+
+References:<br/><br/>
+
+..<br/>
+..
+</p>
+
 # Workspace:
 
 These two locations have been created as an optional workspaces, that is /workspace, and /project. <br/>
