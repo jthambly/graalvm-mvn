@@ -11,19 +11,17 @@ Maven: 3.6.3
 
 # Run as user
 
-This container will run as the user 'mvn' and UID of '1000'. <br/>
+This container will run as the User 'mvn' and UID of '1000'. <br/>
 
-In running this you may need to make adjustments in either host filesystem permissions, or build platform.<br/>
-When using Google Cloud Build, the workspace permissions need to be adjusted to allow the mvn user to modify files/folders. <br/>
+In running this you may need to make adjustments in either the host filesystem permissions, or build platform, to mount volumes.<br/>
 
-<p>
-For example, this solution (..,..) changes the file permissions are changed to allow anyone (in the current build process) to modify files.<br/><br/>
+<p>When using Google Cloud Build, the workspace permissions need to be adjusted to allow the mvn user to modify files/folders. <br/>
+
+For example, Allen (2020) provides a means to change the file permissions to allow anyone (in the current build process) to modify files. This allows the container to access and modify workspace files/folders as required.<br/><br/>
 
 References:<br/><br/>
 
-..<br/>
-..
-</p>
+Allen, A. Z. (2020, March 27). Running as a non-root user · Issue #641 · GoogleCloudPlatform/cloud-builders. https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102</p>
 
 # Workspace:
 
