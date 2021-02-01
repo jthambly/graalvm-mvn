@@ -44,4 +44,7 @@ RUN tar -xzf "apache-maven-$MAVEN_VERSION-bin.tar.gz" -C /opt
 # Clean up
 RUN rm -f graalvm-ce-*.tar.gz* \
   && rm -f apache-maven*.tar.gz*
-  
+
+# Default Entrypoint
+ENTRYPOINT ["mvn"]
+CMD ["--version"]
