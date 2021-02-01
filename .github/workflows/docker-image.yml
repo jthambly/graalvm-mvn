@@ -31,4 +31,4 @@ jobs:
         push: true
         tags: |
           jthambly/graalvm-mvn:latest
-          "jthambly/graalvm-mvn:$GITHUB_REF"
+          "jthambly/graalvm-mvn:${{GITHUB_REF}}"
