@@ -3,7 +3,7 @@
 # graalvm-mvn
 Dockerfile for building a GraalVM and Maven image
 
-Source Versions:
+Binary Versions:
 
 GraalVM CE: 21.0.0-java11 <br/>
 OpenJDK: Java11 <br/>
@@ -11,7 +11,7 @@ Maven: 3.6.3
 
 ## Running
 
-The default entrypoint to the container will be maven using the `mvn` command, and by default the version will be displayed (Example 1).
+The default entry point into the container will be maven using the `mvn` command, and by default, the version will be displayed (Example 1).
 
 **Example 1: Running Maven**
 
@@ -23,7 +23,7 @@ If you want to provide arguments to maven, you can do so easily by appending the
 
 `docker run -t --rm --name graalvm-mvn jthambly/graalvm-mvn --version`
 
-If you would like to run other commands such as `java` or `jar` that are available (Example 3), you will need to overwrite the entrypoint.
+If you would like to run other commands such as `java` or `jar` that are available, you will need to overwrite the entry point (Example 3).
 
 **Example 3: Running other commands**
 
@@ -35,15 +35,15 @@ If you would like to run other commands such as `java` or `jar` that are availab
 A running container will be under the user `mvn` with the UID and GID of `1000:1000`.
 
 
-You will need to take special notice when it comes to file permissions of mounted volumes. 
-The container user will be running as `mvn`, but a mounted volume may take on the permissions of the host, as such may be another user such as `root`. 
-Given this, the container user may not be able to create folders and write files required during the packing building process.
+You will need to take special notice when it comes to the file permissions of mounted volumes. 
+The container user will be running with the `mvn` user. However, a mounted volume will likely take on the permissions of the host, as such may be another user such as `root`. 
+Given this, the user may not be able to create folders and write files required during the building process.
+
 If you have control of the host, it may be as simple as adjusting the permissions of the folders you are mounting to be suitable for the `mvn` user (`UID:1000`) of the container.
 
-
-In other circumstances you may not have control over the underlying host, for example when you use building platforms such as **Google Cloud Build**. 
+In other circumstances, you may not have control over the underlying host, for example when you use a building platforms such as *Google Cloud Build*. 
 A solution for this ([Allen, 2020](https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102)) may be to change the file permissions during a build step to allow anyone (in the current build process) to modify files. 
-This allows the container to access and modify workspace files/folders as required.
+This allows the container to access and modify the workspace files/folders as required.
 
 
 References:
@@ -64,7 +64,7 @@ You will need to mount your project to one of these (Example 4), or an alternate
 
 `docker run -t --rm --name graalvm-mvn --mount type=bind,src=<LOCAL_PROJECT_PATH>,dst=/workspace jthambly/graalvm-mvn clean package -Pnative`
 
-**Example 5: Mount using custom workspace**
+**Example 5: Mount using a custom workspace**
 
 `docker run -t --rm --name graalvm-mvn --mount type=bind,src=<LOCAL_PROJECT_PATH>,dst=<CONTAINER_PROJECT_PATH> jthambly/graalvm-mvn clean package -Pnative -f <CONTAINER_PROJECT_PATH>/pom.xml`
 
