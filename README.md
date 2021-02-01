@@ -27,7 +27,9 @@ If you would like to run other commands such as `java` or `jar` that are availab
 
 **Example 3: Running other commands**
 
-`docker run -t --rm --name graalvm-mvn --entrypoint java jthambly/graalvm-mvn --version`
+`docker run -t --rm --name graalvm-mvn --entrypoint java jthambly/graalvm-mvn --version` or
+
+*Please note that you will not be permitted to open a shell such as bash.*
 
 
 ## Container user
