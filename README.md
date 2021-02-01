@@ -54,11 +54,22 @@ To utilise an local host .m2 cache location, it can be mounted to the */home/mvn
 
 ## Licenses
 
-Debian (base image) - https://www.debian.org/social_contract#guidelines https://github.com/docker-library/repo-info/tree/master/repos/debian<br/>
-Oracle GraalVM Community Edition - Sub Licences - https://github.com/oracle/graal/#license<br/>
-OpenJDK - https://openjdk.java.net/legal/gplv2+ce.html<br/>
-Apache Maven - https://www.apache.org/licenses/LICENSE-2.0 https://github.com/docker-library/repo-info/tree/master/repos/maven<br/>
-Red Hat Quarkus - https://www.apache.org/licenses/LICENSE-2.0<br/>
+Debian (base image)
+ - https://www.debian.org/social_contract#guidelines
+ - https://github.com/docker-library/repo-info/tree/master/repos/debian
+
+Oracle GraalVM Community Edition - Sub Licences
+ - https://github.com/oracle/graal/#license
+
+OpenJDK
+ - https://openjdk.java.net/legal/gplv2+ce.html
+
+Apache Maven
+ - https://www.apache.org/licenses/LICENSE-2.0
+ - https://github.com/docker-library/repo-info/tree/master/repos/maven
+
+Red Hat Quarkus
+ - https://www.apache.org/licenses/LICENSE-2.0
 
 
 ---
