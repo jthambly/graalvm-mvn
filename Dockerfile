@@ -41,9 +41,21 @@ RUN curl -s -L "https://maven.apache.org/download.cgi?action=download&filename=m
 # Extract Maven
 RUN tar -xzf "apache-maven-$MAVEN_VERSION-bin.tar.gz" -C /opt
 
+# Create new user
+RUN useradd -s /sbin/nologin -m mvn
+
+# Set workspace
+RUN mkdir /workspace \
+  && chown mvn:mvn /workspace \
+  && ln -s /workspace /project
+WORKDIR /workspace
+
 # Clean up
 RUN rm -f graalvm-ce-*.tar.gz* \
   && rm -f apache-maven*.tar.gz*
+
+# Run as
+USER mvn
 
 # Default Entrypoint
 ENTRYPOINT ["mvn"]
