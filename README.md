@@ -11,7 +11,7 @@ Maven: 3.6.3
 
 # Workspace:
 
-These two locations have been created as an optional workspaces, that is /workspace, and /project.
+These two locations have been created as an optional workspaces, that is /workspace, and /project. <br/>
 You will need to mount your project to one of these, or to another location of your choosing.
 
 # Using an external .m2 repository cache:
