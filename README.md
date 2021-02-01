@@ -9,6 +9,11 @@ GraalVM CE: 21.0.0-java11 <br/>
 OpenJDK: Java11 <br/>
 Maven: 3.6.3
 
-Using an external .m2 repository cache:
+# Workspace:
+
+These two locations have been created as an optional workspaces, that is /workspace, and /project.
+You will need to mount your project to one of these, or to another location of your choosing.
+
+# Using an external .m2 repository cache:
 
 To utilise an external .m2 cache location, it can be mounted to the /home/mvn/.m2 location.
