@@ -11,12 +11,11 @@ Maven: 3.6.3
 
 # Run as user
 
-This container will run as the User 'mvn' and UID of '1000'. <br/>
+This container will run as the user 'mvn' with the UID of '1000'. <br/>
 
-In running this you may need to make adjustments in either the host filesystem permissions, or build platform, to mount volumes.<br/>
+In running this you may need to make adjustments in either the host filesystem permissions or build platform, to mount volumes.<br/>
 
-<p>When using Google Cloud Build, the workspace permissions need to be adjusted to allow the mvn user to modify files/folders. <br/>
-
+<p>Note: If using Google Cloud Build, the workspace permissions need to be adjusted to allow the mvn user to modify files/folders.
 For example, Allen (2020) provides a means to change the file permissions to allow anyone (in the current build process) to modify files. This allows the container to access and modify workspace files/folders as required.<br/><br/>
 
 References:<br/><br/>
@@ -26,7 +25,15 @@ Allen, A. Z. (2020, March 27). Running as a non-root user · Issue #641 · Googl
 # Workspace:
 
 These two locations have been created as an optional workspaces, that is /workspace, and /project. <br/>
-You will need to mount your project to one of these, or to another location of your choosing.
+You will need to mount your project to one of these, or to another location of your choosing if specifying within the command.
+&nbsp
+<p>
+<b>Example (when using /workspace, or /project):</b><br/>
+docker run -t --rm --name graalvm-mvn --mount type=bind,source=<LOCAL_PROJECT_PATH>,target=/workspace jthambly/graalvm-mvn clean package -Pnative</br>
+&nbsp;
+<b>Example (when using own path):</b><br/>
+docker run -t --rm --name graalvm-mvn --mount type=bind,source=<LOCAL_PROJECT_PATH>,target=<CONTAINER_PROJECT_PATH> jthambly/graalvm-mvn clean package -Pnative -f <CONTAINER_PROJECT_PATH>/pom.xml</br>
+</p>
 
 # Using an external .m2 repository cache:
 
