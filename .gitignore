@@ -1,2 +1,5 @@
 # Visual Studio
 .vs/
+
+# PyCharm
+.idea/
