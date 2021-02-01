@@ -17,7 +17,7 @@ steps:
 - id: 'Test Build: Change folder permissions'
   name: 'busybox'
   entrypoint: sh
-  args: ['-c','chmod -R 777 /workspace']
+  args: ['-c','chmod -R 777 /workspace/testbuild']
 
 - id: 'Test Build: Build using newly created image'
   name: 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME'
