@@ -9,48 +9,73 @@ GraalVM CE: 21.0.0-java11 <br/>
 OpenJDK: Java11 <br/>
 Maven: 3.6.3
 
+## Running
+
+The default entrypoint to the container will be maven using the `mvn` command, and by default the version will be displayed (Example 1).
+
+**Example 1: Running Maven**
+
+`docker run -t --rm --name graalvm-mvn jthambly/graalvm-mvn`
+
+If you want to provide arguments to maven, you can do so easily by appending them to the end (Example 2). *Note: you do not need to include the `mvn` command*.
+
+**Example 2: Running Maven with arguments**
+
+`docker run -t --rm --name graalvm-mvn jthambly/graalvm-mvn --version`
+
+If you would like to run other commands such as `java` or `jar` that are available (Example 3), you will need to overwrite the entrypoint.
+
+**Example 3: Running other commands**
+
+`docker run -t --rm --name graalvm-mvn --entrypoint java jthambly/graalvm-mvn --version`
+
+
 ## Container user
 
-This container will run as the user 'mvn' with the UID of '1000'.
-
-In running this you may need to make adjustments in either the host filesystem permissions or build platform in order to mount volumes with appropriate permissions.
+A running container will be under the user `mvn` with the UID and GID of `1000:1000`.
 
 
-*** Note: Running on Google Cloud Build ***
+You will need to take special notice when it comes to file permissions of mounted volumes. 
+The container user will be running as `mvn`, but a mounted volume may take on the permissions of the host, as such may be another user such as `root`. 
+Given this, the container user may not be able to create folders and write files required during the packing building process.
+If you have control of the host, it may be as simple as adjusting the permissions of the folders you are mounting to be suitable for the `mvn` user (`UID:1000`) of the container.
 
-If using Google Cloud Build, the workspace permissions need to be adjusted to allow the mvn user to modify files/folders.
-For example, Allen (2020) provides a means to change the file permissions to allow anyone (in the current build process) to modify files. This allows the container to access and modify workspace files/folders as required.<br/><br/>
+
+In other circumstances you may not have control over the underlying host, for example when you use building platforms such as **Google Cloud Build**. 
+A solution for this ([Allen, 2020](https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102)) may be to change the file permissions during a build step to allow anyone (in the current build process) to modify files. 
+This allows the container to access and modify workspace files/folders as required.
+
 
 References:
 
 Allen, A. Z. (2020, March 27). *[Running as a non-root user](https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102) · Issue #641 · GoogleCloudPlatform/cloud-builders*. https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102
 
-## Workspace
+## Workspaces
 
-Two locations have been created for optional workspaces. These are:
+Two locations have been created as optional workspaces. These are:
 - */workspace*, and 
 - */project*. <br/>
 
 
-You will need to mount your project to one of these, or to another location of your choosing if specifying within the command.
+You will need to mount your project to one of these (Example 4), or an alternate location (Example 5) of your choosing.
 
 
-**Example 1: Mount to provided workspace**
+**Example 4: Mount to a provided workspace**
 
-`docker run -t --rm --name graalvm-mvn --mount type=bind,source=<LOCAL_PROJECT_PATH>,target=/workspace jthambly/graalvm-mvn clean package -Pnative`
+`docker run -t --rm --name graalvm-mvn --mount type=bind,src=<LOCAL_PROJECT_PATH>,dst=/workspace jthambly/graalvm-mvn clean package -Pnative`
 
-**Example 2: Mount to using custom workspace**
+**Example 5: Mount using custom workspace**
 
-`docker run -t --rm --name graalvm-mvn --mount type=bind,source=<LOCAL_PROJECT_PATH>,target=<CONTAINER_PROJECT_PATH> jthambly/graalvm-mvn clean package -Pnative -f <CONTAINER_PROJECT_PATH>/pom.xml`
+`docker run -t --rm --name graalvm-mvn --mount type=bind,src=<LOCAL_PROJECT_PATH>,dst=<CONTAINER_PROJECT_PATH> jthambly/graalvm-mvn clean package -Pnative -f <CONTAINER_PROJECT_PATH>/pom.xml`
 
-## Using a local host .m2 repository cache
+## Using an alternate .m2 repository cache
 
-To utilise an local host .m2 cache location, it can be mounted to the */home/mvn/.m2* location.
+To utilise an alterntive .m2 cache location, it can be mounted at the */home/mvn/.m2* location (Example 6).
 
 
-**Example 3: Mount a local maven repository**
+**Example 6: Mount to an alternate maven repository**
 
-`docker run -t --rm --name graalvm-mvn --mount type=bind,source=<LOCAL_M2_PATH>,target=/home/mvn/.m2 --mount type=bind,source=<LOCAL_PROJECT_PATH>,target=/workspace jthambly/graalvm-mvn clean package -Pnative`
+`docker run -t --rm --name graalvm-mvn --mount type=bind,src=<LOCAL_M2_PATH>,dst=/home/mvn/.m2 --mount type=bind,src=<LOCAL_PROJECT_PATH>,dst=/workspace jthambly/graalvm-mvn clean package -Pnative`
 
 ## Licenses
 
@@ -58,7 +83,7 @@ Debian (base image)
  - https://www.debian.org/social_contract#guidelines
  - https://github.com/docker-library/repo-info/tree/master/repos/debian
 
-Oracle GraalVM Community Edition - Sub Licences
+Oracle GraalVM Community Edition - Components
  - https://github.com/oracle/graal/#license
 
 OpenJDK
