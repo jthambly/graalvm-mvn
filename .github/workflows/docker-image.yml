@@ -3,15 +3,11 @@
 
 name: Docker Build and Push
 on:
-  pull_request:
-    types:
-     - opened
-     - synchronize
-    branches:
-     - master
   push:
     branches:
      - master
+    tags:
+     - 'v*'
 jobs:
   build:
     runs-on: ubuntu-latest
