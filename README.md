@@ -5,9 +5,9 @@ Dockerfile for building a GraalVM and Maven image
 
 Binary Versions:
 
-GraalVM CE: 21.0.0-java11 <br/>
-OpenJDK: Java11 <br/>
-Maven: 3.6.3
+GraalVM CE: 21.1.0-java16 <br/>
+OpenJDK: Java16 <br/>
+Maven: 3.8.1
 
 ## Running
 
