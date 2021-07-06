@@ -102,10 +102,6 @@ docker/build-push-action
  - https://github.com/docker/build-push-action/blob/master/LICENSE
  - Documentation: https://github.com/docker/build-push-action
 
-crazy-max/ghaction-docker-meta
- - https://github.com/crazy-max/ghaction-docker-meta/blob/master/LICENSE
- - Documentation: https://github.com/crazy-max/ghaction-docker-meta
-
 
 ---
 
