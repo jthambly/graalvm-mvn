@@ -44,10 +44,10 @@ RUN mkdir /workspace \
   && ln -s /workspace /project
 WORKDIR /workspace
 
-# Run as new user							# REMOVE for user root
-RUN useradd -s /sbin/nologin -m mvn			# REMOVE for user root
-RUN chown mvn:mvn /workspace				# REMOVE for user root
-USER mvn									# REMOVE for user root
+# Run as new user
+RUN useradd -s /sbin/nologin -m mvn
+RUN chown mvn:mvn /workspace
+USER mvn
 
 # Default Entrypoint
 ENTRYPOINT ["mvn"]
