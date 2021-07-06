@@ -51,7 +51,7 @@ Allen, A. Z. (2020, March 27). *[Running as a non-root user](https://github.com/
 
 ### Running as the root user
 
-If you understand the risks and wish to run the container as the root user, use the `rootusr` tagged image.
+If you understand the risks and wish to run the container as the root user, you can use the `rootusr` tagged image.
 
 ## Workspaces
 
