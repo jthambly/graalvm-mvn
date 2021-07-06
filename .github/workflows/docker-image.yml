@@ -1,12 +1,11 @@
 # Updated using documentation available via https://github.com/docker/build-push-action
-# Updated using documentation available via https://github.com/marketplace/actions/docker-metadata-action
 
 name: Docker Build and Push
 on:
   workflow_dispatch:
-  push:
-    branches:
-     - master
+  release:
+    types:
+     - published
     tags:
      - 'v*'
 jobs:
@@ -16,11 +15,6 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v2
-    - name: Docker meta
-      id: meta
-      uses: docker/metadata-action@v3
-      with:
-        images: jthambly/graalvm-mvn
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -34,7 +28,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ steps.docker_meta.outputs.tags }}
+        tags: "jthambly/graalvm-mvn:$GITHUB_REF,jthambly/graalvm-mvn:latest"
 
   build-root:
     runs-on: ubuntu-latest
@@ -42,7 +36,7 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
     - name: Strip user information
-      run:  sed -i -z 's/# Run as new user.*\n\n#/#/' Dockerfile
+      run:  sed -z 's/# Run as new user.*\n\n#/#/' Dockerfile
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
