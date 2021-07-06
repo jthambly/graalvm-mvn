@@ -6,8 +6,7 @@ on:
   pull_request:
     branches:
      - master
-    types:
-     - opened
+    types: [opened,edited]
   push:
     branches:
      - master
