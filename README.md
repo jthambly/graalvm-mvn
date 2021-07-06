@@ -27,15 +27,12 @@ If you would like to run other commands such as `java` or `jar` that are availab
 
 **Example 3: Running other commands**
 
-`docker run -t --rm --name graalvm-mvn --entrypoint java jthambly/graalvm-mvn --version` or
-
-*Please note that you will not be permitted to open a shell such as bash.*
+`docker run -t --rm --name graalvm-mvn --entrypoint java jthambly/graalvm-mvn --version`
 
 
 ## Container user
 
 A running container will be under the user `mvn` with the UID and GID of `1000:1000`.
-
 
 You will need to take special notice when it comes to the file permissions of mounted volumes. 
 The container is running using the `mvn` user. However, a mounted volume will likely take on the permissions of the host, as such may be another user such as `root`. 
@@ -51,6 +48,10 @@ This allows the container to access and modify the workspace files/folders as re
 References:
 
 Allen, A. Z. (2020, March 27). *[Running as a non-root user](https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102) · Issue #641 · GoogleCloudPlatform/cloud-builders*. https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102
+
+### Running as the root user
+
+If you understand the risks and wish to run the container as the root user, use the `rootusr` tagged image.
 
 ## Workspaces
 
