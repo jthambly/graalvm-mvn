@@ -39,8 +39,6 @@ jobs:
       uses: actions/checkout@v2
     - name: Strip user information
       run:  sed -i -z 's/# Run as new user.*\n\n#/#/' Dockerfile
-    - name: diag
-      run:  cat Dockerfile
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -54,4 +52,5 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
+        context: .
         tags: jthambly/graalvm-mvn:rootusr
