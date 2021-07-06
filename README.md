@@ -13,29 +13,26 @@ Maven: 3.8.1
 
 The default entry point into the container will be maven using the `mvn` command, and by default, the version will be displayed (Example 1).
 
-**Example 1: Running Maven**
+*Example 1: Running Maven*
 
 `docker run -t --rm --name graalvm-mvn jthambly/graalvm-mvn`
 
 If you want to provide arguments to maven, you can do so easily by appending them to the end (Example 2). *Note: you do not need to include the `mvn` command*.
 
-**Example 2: Running Maven with arguments**
+*Example 2: Running Maven with arguments*
 
 `docker run -t --rm --name graalvm-mvn jthambly/graalvm-mvn --version`
 
 If you would like to run other commands such as `java` or `jar` that are available, you will need to overwrite the entry point (Example 3).
 
-**Example 3: Running other commands**
+*Example 3: Running other commands*
 
-`docker run -t --rm --name graalvm-mvn --entrypoint java jthambly/graalvm-mvn --version` or
-
-*Please note that you will not be permitted to open a shell such as bash.*
+`docker run -t --rm --name graalvm-mvn --entrypoint java jthambly/graalvm-mvn --version`
 
 
 ## Container user
 
 A running container will be under the user `mvn` with the UID and GID of `1000:1000`.
-
 
 You will need to take special notice when it comes to the file permissions of mounted volumes. 
 The container is running using the `mvn` user. However, a mounted volume will likely take on the permissions of the host, as such may be another user such as `root`. 
@@ -52,6 +49,10 @@ References:
 
 Allen, A. Z. (2020, March 27). *[Running as a non-root user](https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102) · Issue #641 · GoogleCloudPlatform/cloud-builders*. https://github.com/GoogleCloudPlatform/cloud-builders/issues/641#issuecomment-604599102
 
+### Running as the root user
+
+If you understand the risks and wish to run the container as the root user, you can use the `rootusr` tagged image.
+
 ## Workspaces
 
 Two locations have been created as optional workspaces. These are:
@@ -62,11 +63,11 @@ Two locations have been created as optional workspaces. These are:
 You can mount your project to one of these (Example 4), or an alternate location (Example 5) of your choosing.
 
 
-**Example 4: Mount to a provided workspace**
+*Example 4: Mount to a provided workspace*
 
 `docker run -t --rm --name graalvm-mvn --mount type=bind,src=<LOCAL_PROJECT_PATH>,dst=/workspace jthambly/graalvm-mvn clean package -Pnative`
 
-**Example 5: Mount using a custom workspace**
+*Example 5: Mount using a custom workspace*
 
 `docker run -t --rm --name graalvm-mvn --mount type=bind,src=<LOCAL_PROJECT_PATH>,dst=<CONTAINER_PROJECT_PATH> jthambly/graalvm-mvn clean package -Pnative -f <CONTAINER_PROJECT_PATH>/pom.xml`
 
@@ -75,7 +76,7 @@ You can mount your project to one of these (Example 4), or an alternate location
 To utilise an alterntive .m2 cache location, it can be mounted at the */home/mvn/.m2* location (Example 6).
 
 
-**Example 6: Mount to an alternate maven repository**
+*Example 6: Mount to an alternate maven repository*
 
 `docker run -t --rm --name graalvm-mvn --mount type=bind,src=<LOCAL_M2_PATH>,dst=/home/mvn/.m2 --mount type=bind,src=<LOCAL_PROJECT_PATH>,dst=/workspace jthambly/graalvm-mvn clean package -Pnative`
 
