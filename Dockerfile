@@ -39,16 +39,14 @@ RUN curl -s -L "https://maven.apache.org/download.cgi?action=download&filename=m
   && tar -xzf "apache-maven-$MAVEN_VERSION-bin.tar.gz" -C /opt \
   && rm -f apache-maven*.tar.gz*
 
-# Create new user							# REMOVE for user root
-RUN useradd -s /sbin/nologin -m mvn			# REMOVE for user root
-
 # Set workspace
 RUN mkdir /workspace \
-  && chown mvn:mvn /workspace \
   && ln -s /workspace /project
 WORKDIR /workspace
 
-# Run as									# REMOVE for user root
+# Run as new user							# REMOVE for user root
+RUN useradd -s /sbin/nologin -m mvn			# REMOVE for user root
+RUN chown mvn:mvn /workspace				# REMOVE for user root
 USER mvn									# REMOVE for user root
 
 # Default Entrypoint
