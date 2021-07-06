@@ -28,7 +28,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: "jthambly/graalvm-mvn:$GITHUB_REF,jthambly/graalvm-mvn:latest"
+        tags: jthambly/graalvm-mvn:latest
 
   build-root:
     runs-on: ubuntu-latest
