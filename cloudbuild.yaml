@@ -4,7 +4,7 @@ steps:
 
 - id: Build image
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME','-f','Dockerfile','.']
+  args: ['build','-t','gcr.io/$PROJECT_ID/$REPO_NAME:v$BRANCH_NAME','-f','Dockerfile','.']
 
 - id: 'Test Build: Download source'
   name: 'gcr.io/cloud-builders/wget'
@@ -20,11 +20,11 @@ steps:
   args: ['-c','chmod -R 777 testbuild']
 
 - id: 'Test Build: Build using newly created image'
-  name: 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME'
+  name: 'gcr.io/$PROJECT_ID/$REPO_NAME:v$BRANCH_NAME'
   entrypoint: mvn
   args: ['clean','package','-Pnative','-f','testbuild/code-with-quarkus/pom.xml']
 
-images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME']
+images: ['gcr.io/$PROJECT_ID/$REPO_NAME:v$BRANCH_NAME']
   
 options:
   machineType: 'N1_HIGHCPU_8'
