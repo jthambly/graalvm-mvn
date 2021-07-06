@@ -38,7 +38,9 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
     - name: Strip user information
-      run:  sed -z 's/# Run as new user.*\n\n#/#/' Dockerfile > Dockerfile-root
+      run:  sed -i -z 's/# Run as new user.*\n\n#/#/' Dockerfile
+    - name: diag
+      run:  cat Dockerfile
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -48,13 +50,8 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Print workspace path
-      run: |
-        echo $GITHUB_WORKSPACE && pwd && echo ${{github.ref}}
-        ls -la
     - name: Build and Push image
       uses: docker/build-push-action@v2
       with:
         push: true
-        file: Dockerfile-root
         tags: jthambly/graalvm-mvn:rootusr
