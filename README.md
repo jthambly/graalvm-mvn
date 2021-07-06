@@ -17,8 +17,6 @@ The default entry point into the container will be maven using the `mvn` command
 
 `docker run -t --rm --name graalvm-mvn jthambly/graalvm-mvn`
 
-&nbsp;
-
 If you want to provide arguments to maven, you can do so easily by appending them to the end (Example 2). *Note: you do not need to include the `mvn` command*.
 
 **Example 2: Running Maven with arguments**
