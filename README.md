@@ -7,7 +7,7 @@ Binary Versions:
 
 GraalVM CE: 21.3.0-java17 <br/>
 OpenJDK: Java17 <br/>
-Maven: 3.8.1
+Maven: 3.8.4
 
 ## Running
 

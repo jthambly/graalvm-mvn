@@ -4,7 +4,7 @@ MAINTAINER Jason Hambly www.linkedin.com/in/jason-hambly
 # External package versions
 ENV GRAALVM_VERSION=21.3.0
 ENV OPENJDK_VERSION=17
-ENV MAVEN_VERSION=3.8.1
+ENV MAVEN_VERSION=3.8.4
 
 # Environment variables
 ENV JAVA_HOME="/opt/graalvm-ce-java$OPENJDK_VERSION-$GRAALVM_VERSION"
