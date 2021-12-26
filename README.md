@@ -1,4 +1,4 @@
-![Docker Build and Push](https://github.com/jthambly/graalvm-mvn/workflows/Docker%20Build%20and%20Push/badge.svg?branch=master)
+[![Docker Build and Push](https://github.com/jthambly/graalvm-mvn/actions/workflows/docker-image.yml/badge.svg?event=release)](https://github.com/jthambly/graalvm-mvn/actions/workflows/docker-image.yml)
 
 # graalvm-mvn
 Dockerfile for building a GraalVM and Maven image
@@ -7,7 +7,7 @@ Binary Versions:
 
 GraalVM CE: 21.3.0-java17 <br/>
 OpenJDK: Java17 <br/>
-Maven: 3.8.1
+Maven: 3.8.4
 
 ## Running
 
